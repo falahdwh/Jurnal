@@ -1,0 +1,100 @@
+package com.company;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+
+public class SinglyLinkedList <E>{
+    private ListNode<E> firstNode;
+    private ListNode<E> lastNode;
+    private String name;
+
+    public SinglyLinkedList(){this("linked list");
+    }
+    public SinglyLinkedList(String listName){
+        name = listName;
+        firstNode = lastNode = null;
+    }
+    public void tambahDariDepan(E insertItem){
+        ListNode<E> newNode = new ListNode<E>(insertItem);
+
+        if(isEmpty()) {
+            firstNode = lastNode = new ListNode<E>(insertItem);
+        }else{
+            newNode.next = firstNode;
+            firstNode = newNode;
+        }
+    }
+
+    public void tambahDariBelakang(E insertItem){
+        ListNode<E> newNode = new ListNode<E>(insertItem);
+
+        if (isEmpty()) {
+            firstNode = lastNode = new ListNode<E>(insertItem);
+    }else {
+            lastNode.next = newNode;
+            lastNode = newNode;
+    }
+}
+
+    public E hilangkanDataDepan() throws NoSuchElementException{
+        if(isEmpty()){
+            throw new NoSuchElementException(name + "is empty");
+
+        }
+        E hapusItem = firstNode.data;
+
+        if(firstNode == lastNode){
+            firstNode = lastNode = null;
+        }else {
+            firstNode = firstNode.next;
+        }
+        return  hapusItem;
+    }
+
+    public E hilangkanDataBelakang() throws NoSuchElementException{
+        if(isEmpty()){
+            throw new NoSuchElementException(name + "is empty");
+        }
+        E hapusItem = lastNode.data;
+
+        if(firstNode == lastNode){
+            firstNode = lastNode = null;
+        }else{
+            ListNode<E>current = firstNode;
+
+            while(current.next != lastNode){
+                current = current.next;
+            }
+            lastNode = current;
+            current.next = null;
+        }
+        return hapusItem;
+    }
+    private boolean isEmpty() { return firstNode == null; }
+
+    public void print(){
+    if (isEmpty()) {
+        System.out.printf("Empty %s%n", name);
+        return;
+    }
+        System.out.printf("The %s is : %n", name);
+        ListNode<E> current = firstNode;
+
+        while (current !=null){
+            System.out.printf("%s %n ", current.data);
+            current = current.next;
+        }
+        System.out.println();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
